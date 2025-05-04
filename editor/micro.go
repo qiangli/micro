@@ -11,7 +11,7 @@ import (
 	"regexp"
 	"runtime"
 	"runtime/pprof"
-	"sort"
+	// "sort"
 	"strconv"
 	"syscall"
 	"time"
@@ -47,43 +47,43 @@ var (
 
 func InitFlags(options []string) {
 	flag.Usage = func() {
-		fmt.Println("Usage: micro [OPTIONS] [FILE]...")
+		fmt.Println("Usage: edit [OPTIONS] [FILE]...")
 		fmt.Println("-clean")
 		fmt.Println("    \tCleans the configuration directory")
-		fmt.Println("-config-dir dir")
-		fmt.Println("    \tSpecify a custom location for the configuration directory")
-		fmt.Println("[FILE]:LINE:COL (if the `parsecursor` option is enabled)")
-		fmt.Println("+LINE:COL")
-		fmt.Println("    \tSpecify a line and column to start the cursor at when opening a buffer")
-		fmt.Println("-options")
-		fmt.Println("    \tShow all option help")
+		// fmt.Println("-config-dir dir")
+		// fmt.Println("    \tSpecify a custom location for the configuration directory")
+		// fmt.Println("[FILE]:LINE:COL (if the `parsecursor` option is enabled)")
+		// fmt.Println("+LINE:COL")
+		// fmt.Println("    \tSpecify a line and column to start the cursor at when opening a buffer")
+		// fmt.Println("-options")
+		// fmt.Println("    \tShow all option help")
 		fmt.Println("-debug")
 		fmt.Println("    \tEnable debug mode (enables logging to ./log.txt)")
-		fmt.Println("-profile")
-		fmt.Println("    \tEnable CPU profiling (writes profile info to ./micro.prof")
-		fmt.Println("    \tso it can be analyzed later with \"go tool pprof micro.prof\")")
+		// fmt.Println("-profile")
+		// fmt.Println("    \tEnable CPU profiling (writes profile info to ./micro.prof")
+		// fmt.Println("    \tso it can be analyzed later with \"go tool pprof micro.prof\")")
 		fmt.Println("-version")
 		fmt.Println("    \tShow the version number and information")
 
-		fmt.Print("\nMicro's plugins can be managed at the command line with the following commands.\n")
-		fmt.Println("-plugin install [PLUGIN]...")
-		fmt.Println("    \tInstall plugin(s)")
-		fmt.Println("-plugin remove [PLUGIN]...")
-		fmt.Println("    \tRemove plugin(s)")
-		fmt.Println("-plugin update [PLUGIN]...")
-		fmt.Println("    \tUpdate plugin(s) (if no argument is given, updates all plugins)")
-		fmt.Println("-plugin search [PLUGIN]...")
-		fmt.Println("    \tSearch for a plugin")
-		fmt.Println("-plugin list")
-		fmt.Println("    \tList installed plugins")
-		fmt.Println("-plugin available")
-		fmt.Println("    \tList available plugins")
+		// fmt.Print("\nMicro's plugins can be managed at the command line with the following commands.\n")
+		// fmt.Println("-plugin install [PLUGIN]...")
+		// fmt.Println("    \tInstall plugin(s)")
+		// fmt.Println("-plugin remove [PLUGIN]...")
+		// fmt.Println("    \tRemove plugin(s)")
+		// fmt.Println("-plugin update [PLUGIN]...")
+		// fmt.Println("    \tUpdate plugin(s) (if no argument is given, updates all plugins)")
+		// fmt.Println("-plugin search [PLUGIN]...")
+		// fmt.Println("    \tSearch for a plugin")
+		// fmt.Println("-plugin list")
+		// fmt.Println("    \tList installed plugins")
+		// fmt.Println("-plugin available")
+		// fmt.Println("    \tList available plugins")
 
-		fmt.Print("\nMicro's options can also be set via command line arguments for quick\nadjustments. For real configuration, please use the settings.json\nfile (see 'help options').\n\n")
-		fmt.Println("-option value")
-		fmt.Println("    \tSet `option` to `value` for this session")
-		fmt.Println("    \tFor example: `micro -syntax off file.c`")
-		fmt.Println("\nUse `micro -options` to see the full list of configuration options")
+		// fmt.Print("\nMicro's options can also be set via command line arguments for quick\nadjustments. For real configuration, please use the settings.json\nfile (see 'help options').\n\n")
+		// fmt.Println("-option value")
+		// fmt.Println("    \tSet `option` to `value` for this session")
+		// fmt.Println("    \tFor example: `micro -syntax off file.c`")
+		// fmt.Println("\nUse `micro -options` to see the full list of configuration options")
 	}
 
 	optionFlags = make(map[string]*string)
@@ -102,21 +102,21 @@ func InitFlags(options []string) {
 		exit(0)
 	}
 
-	if *flagOptions {
-		// If -options was passed
-		var keys []string
-		m := config.DefaultAllSettings()
-		for k := range m {
-			keys = append(keys, k)
-		}
-		sort.Strings(keys)
-		for _, k := range keys {
-			v := m[k]
-			fmt.Printf("-%s value\n", k)
-			fmt.Printf("    \tDefault value: '%v'\n", v)
-		}
-		exit(0)
-	}
+	// if *flagOptions {
+	// 	// If -options was passed
+	// 	var keys []string
+	// 	m := config.DefaultAllSettings()
+	// 	for k := range m {
+	// 		keys = append(keys, k)
+	// 	}
+	// 	sort.Strings(keys)
+	// 	for _, k := range keys {
+	// 		v := m[k]
+	// 		fmt.Printf("-%s value\n", k)
+	// 		fmt.Printf("    \tDefault value: '%v'\n", v)
+	// 	}
+	// 	exit(0)
+	// }
 
 	if util.Debug == "OFF" && *flagDebug {
 		util.Debug = "ON"
@@ -259,10 +259,10 @@ func init() {
 }
 
 func exit(rc int) {
-	fmt.Fprintf(os.Stderr, "\nExiting...\n")
+	// fmt.Fprintf(os.Stderr, "\nExiting...\n")
 
 	for _, b := range buffer.OpenBuffers {
-		fmt.Fprintf(os.Stderr, "Saving buffer %v\n", b)
+		// fmt.Fprintf(os.Stderr, "Saving buffer %v\n", b)
 
 		if !b.Modified() {
 			b.Fini()
@@ -273,12 +273,12 @@ func exit(rc int) {
 		screen.Screen.Fini()
 	}
 
-	fmt.Fprintf(os.Stderr, "Exit code: %d\n", rc)
+	// fmt.Fprintf(os.Stderr, "Exit code: %d\n", rc)
 
 	Exiting <- rc
 
-	fmt.Fprintf(os.Stderr, "Exit code e: %d\n", rc)
-	// close(Exiting)
+	// fmt.Fprintf(os.Stderr, "Exit code e: %d\n", rc)
+	close(Exiting)
 }
 
 func NewEditor(options []string) {
