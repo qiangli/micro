@@ -4,6 +4,10 @@ import (
 	"github.com/zyedidia/micro/v2/internal/util"
 )
 
+func LocXY(x, y int) Loc {
+	return Loc{x, y}
+}
+
 // Loc stores a location
 type Loc struct {
 	X, Y int

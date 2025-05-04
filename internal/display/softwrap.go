@@ -6,6 +6,10 @@ import (
 	"github.com/zyedidia/micro/v2/internal/util"
 )
 
+func SLocXY(x, y int) SLoc {
+	return SLoc{x, y}
+}
+
 // SLoc represents a vertical scrolling location, i.e. a location of a visual line
 // in the buffer. When softwrap is enabled, a buffer line may be displayed as
 // multiple visual lines (rows). So SLoc stores a number of a line in the buffer
