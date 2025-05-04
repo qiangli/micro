@@ -88,9 +88,9 @@ func InitFlags(options []string) {
 
 	optionFlags = make(map[string]*string)
 
-	for k, v := range config.DefaultAllSettings() {
-		optionFlags[k] = flag.String(k, "", fmt.Sprintf("The %s option. Default value: '%v'.", k, v))
-	}
+	// for k, v := range config.DefaultAllSettings() {
+	// 	optionFlags[k] = flag.String(k, "", fmt.Sprintf("The %s option. Default value: '%v'.", k, v))
+	// }
 
 	flag.CommandLine.Parse(options)
 
