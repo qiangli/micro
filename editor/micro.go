@@ -259,10 +259,7 @@ func init() {
 }
 
 func exit(rc int) {
-	// fmt.Fprintf(os.Stderr, "\nExiting...\n")
-
 	for _, b := range buffer.OpenBuffers {
-		// fmt.Fprintf(os.Stderr, "Saving buffer %v\n", b)
 
 		if !b.Modified() {
 			b.Fini()
@@ -273,12 +270,7 @@ func exit(rc int) {
 		screen.Screen.Fini()
 	}
 
-	// fmt.Fprintf(os.Stderr, "Exit code: %d\n", rc)
-
 	Exiting <- rc
-
-	// fmt.Fprintf(os.Stderr, "Exit code e: %d\n", rc)
-	close(Exiting)
 }
 
 func NewEditor(options []string) {
